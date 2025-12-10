@@ -1,5 +1,5 @@
 # HOMEPAGE-SCRIPTS
-These are scripts to install and update [Homepage](https://gethomepage.dev/installation/). They are similar to [ttek's homepage lxc scripts](https://community-scripts.github.io/ProxmoxVE/scripts?id=homepage), but used within a server instead of proxmox and tailored for my personal use.
+These are scripts to easily install and update [Homepage](https://gethomepage.dev/installation/) on an Ubuntu server. They are similar to the LXC Homepage scripts from [Proxmox VE Helper-Scripts](https://community-scripts.github.io/ProxmoxVE/scripts?id=homepage), but tailored for my personal use and used within the server instead of Proxmox.
 
 ## Requirements
 The following packages are installed:
