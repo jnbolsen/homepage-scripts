@@ -1,4 +1,4 @@
-# Homepage-scripts
+# HOMEPAGE-SCRIPTS
 These are scripts to install and update homepage. They are similar to [ttek's homepage lxc scripts](https://community-scripts.github.io/ProxmoxVE/scripts?id=homepage), but used within a server instead of proxmox and tailored for my personal use.
 
 ## Requirements
