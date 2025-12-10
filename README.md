@@ -1,5 +1,5 @@
 # HOMEPAGE-SCRIPTS
-These are scripts to easily install and update [Homepage](https://gethomepage.dev/installation/) on an Ubuntu server. They are similar to the LXC Homepage scripts from [Proxmox VE Helper-Scripts](https://community-scripts.github.io/ProxmoxVE/scripts?id=homepage), but tailored for my personal use and used within the server instead of Proxmox.
+These are scripts to easily install and update [Homepage](https://gethomepage.dev/installation/) from source on an Ubuntu server. They are similar to the LXC Homepage scripts from [Proxmox VE Helper-Scripts](https://community-scripts.github.io/ProxmoxVE/scripts?id=homepage), but tailored for my personal use and used within the server instead of Proxmox.
 
 Right now these are set to be verbose but can be changed by removing `-x` at the top of each script.
 
