@@ -46,3 +46,7 @@ Run the script.
 
 ## References
 These scripts are similar to the LXC Homepage scripts from [Proxmox VE Helper-Scripts](https://community-scripts.github.io/ProxmoxVE/scripts?id=homepage), but tailored for my personal use and used within the server instead of Proxmox.
+
+## License
+
+[MIT](https://github.com/jnbolsen/homepage-scripts/blob/main/LICENSE.md)
