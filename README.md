@@ -44,7 +44,11 @@ Run the script.
 
 `/opt/homepage/config/`
 
-## References
+## Tested Environments
+Ubuntu 22.04, 24.04, and 25.10
+Debian 12 and 13
+
+## Reference
 These scripts are similar to the LXC Homepage scripts from [Proxmox VE Helper-Scripts](https://community-scripts.github.io/ProxmoxVE/scripts?id=homepage), but tailored for my personal use and used within the server instead of Proxmox.
 
 ## License
