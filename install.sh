@@ -16,7 +16,7 @@ msg_ok() { echo -e "${GREEN}SUCCESS:${NC} $1"; }
 msg_error() { echo -e "${RED}ERROR:${NC} $1" >&2; }
 
 # Variables
-APP="homepage"
+APP=homepage
 LOCAL_IP=$(hostname -I | awk '{print $1}')
 DOMAIN=$(hostname -d 2>/dev/null || echo "")
 RELEASE=$(curl -fsSL "https://api.github.com/repos/gethomepage/homepage/releases/latest" | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4 | sed 's/^v//')
@@ -35,11 +35,11 @@ if [ -f $VERSION_FILE ]; then
         exit 0
     fi
     NEW_INSTALLATION=false
-    msg_ok "Homepage v$INSTALLED_VERSION is currently installed and v$RELEASE is available. Updating..."
+    msg_info "Homepage v$INSTALLED_VERSION is currently installed and v$RELEASE is available. Updating..."
     systemctl stop homepage
 else
     NEW_INSTALLATION=true
-    msg_ok "No Homepage installation detected. Installing..."
+    msg_info "No Homepage installation detected. Installing..."
     mkdir -p /opt/${APP}/config
 fi
 
@@ -48,22 +48,22 @@ apt update && apt upgrade -y
 npm install -g pnpm
 
 # Download and extract source
-msg_ok "Downloading and extracting source..."
+msg_info "Downloading and extracting source..."
 curl -fsSL "https://github.com/gethomepage/homepage/archive/refs/tags/v${RELEASE}.tar.gz" -o "/tmp/${RELEASE}.tar.gz"
 tar -xzf /tmp/${RELEASE}.tar.gz -C /tmp
 
 # Copy source to installation folder and clean /tmp
-msg_ok "Copying source to installation directory and cleaning up..."
+msg_info "Copying source to installation directory and cleaning up..."
 cp -r /tmp/${APP}-${RELEASE}/* /opt/${APP}/
 rm -r /tmp/${APP}-${RELEASE} /tmp/${RELEASE}.tar.gz
 
 # Copy config files for new installations only
 if [ $NEW_INSTALLATION = true ]; then
-    msg_ok "Copying default configuration files..."
+    msg_info "Copying default configuration files..."
     [ -d /opt/${APP}/src/skeleton ] && cp -r /opt/${APP}/src/skeleton/* /opt/${APP}/config/
     
     # Create environment file
-    msg_ok "Creating environment variable file..."
+    msg_info "Creating environment variable file..."
     if [ -z "$DOMAIN" ]; then
         echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000" > /opt/${APP}/.env
     else
@@ -71,7 +71,7 @@ if [ $NEW_INSTALLATION = true ]; then
     fi
     
     # Create systemd service
-    msg_ok "Creating systemd service..."
+    msg_info "Creating systemd service..."
     cat > /etc/systemd/system/${APP}.service <<EOF
 [Unit]
 Description=${APP}
