@@ -32,6 +32,7 @@ command_exists() {
 APP="homepage"
 LOCAL_IP=$(hostname -I | awk '{print $1}')
 RELEASE=$(curl -fsSL "https://api.github.com/repos/gethomepage/homepage/releases/latest" | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4)
+VERSION_FILE="/opt/${APP}_version"
 
 # Validate release version
 if [ -z "$RELEASE" ]; then
@@ -64,7 +65,6 @@ if ! command_exists npm; then
 fi
 
 # Version check - If version file exists and matches current release, exit
-VERSION_FILE="/opt/${APP}_version"
 if [ -f "$VERSION_FILE" ]; then
     INSTALLED_VERSION=$(cat "$VERSION_FILE")
     if [ "$INSTALLED_VERSION" = "$RELEASE" ]; then
