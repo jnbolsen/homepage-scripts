@@ -21,6 +21,8 @@ Download `install.sh`.
 wget -O install.sh https://raw.githubusercontent.com/jnbolsen/homepage-scripts/refs/heads/main/install.sh
 ```
 
+Edit `install.sh` and add your internal domain to the domain variable `DOMAIN`, if you have one.
+
 Make the scrip executable.
 
 ```bash
