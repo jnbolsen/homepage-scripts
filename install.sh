@@ -63,7 +63,7 @@ if [ $NEW_INSTALLATION = true ]; then
     
     # Create environment file
     msg_ok "Creating environment variable file..."
-    echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000,${APP}.${DOMAIN}" > /opt/${APP}/.env
+    echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000,${APP}.${DOMAIN}:3000" > /opt/${APP}/.env
     
     # Create systemd service
     msg_ok "Creating systemd service..."
