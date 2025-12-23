@@ -16,7 +16,7 @@ This repository contains a script that installs and updates Homepage from source
 
 ## Directories
 - Installation directory: `/opt/homepage`
-- Working directory: '/tmp`
+- Working directory: `/tmp`
 - Version file location: `/opt`
 
 ## Script summary
