@@ -16,7 +16,7 @@ msg_ok() { echo -e "${GREEN}SUCCESS:${NC} $1"; }
 msg_error() { echo -e "${RED}ERROR:${NC} $1" >&2; }
 
 # Variables
-APP=$(hostname)
+APP="homepage"
 LOCAL_IP=$(hostname -I | awk '{print $1}')
 DOMAIN=$(hostname -d 2>/dev/null || echo "")
 RELEASE=$(curl -fsSL "https://api.github.com/repos/gethomepage/homepage/releases/latest" | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4 | sed 's/^v//')
