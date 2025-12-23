@@ -63,7 +63,11 @@ if [ $NEW_INSTALLATION = true ]; then
     
     # Create environment file
     msg_ok "Creating environment variable file..."
-    echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000,${APP}.${DOMAIN}:3000" > /opt/${APP}/.env
+    if [ -z "$DOMAIN" ]; then
+        echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000" > /opt/${APP}/.env
+    else
+        echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000,${APP}.${DOMAIN}:3000" > /opt/${APP}/.env
+    fi
     
     # Create systemd service
     msg_ok "Creating systemd service..."
@@ -97,6 +101,12 @@ pnpm build
 echo "${RELEASE}" > $VERSION_FILE
 
 msg_ok "Successfully installed ${APP} v${RELEASE}!"
+if [ -z "$DOMAIN" ]; then
+    msg_ok "Access it via localhost:3000 or ${LOCAL_IP}:3000."
+else
+    msg_ok "Access it via localhost:3000, ${LOCAL_IP}:3000, or ${APP}.${DOMAIN}:3000."
+fi
+
 
 # Service management
 if [ $NEW_INSTALLATION = true ]; then
