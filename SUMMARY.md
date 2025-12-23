@@ -1,5 +1,5 @@
 # Summary
-This file provides a summary of what the script does.
+This file provides a summary of what the install script does.
 
 > [!TIP]
 > It can also provide guidance to an AI model when working with this script.
