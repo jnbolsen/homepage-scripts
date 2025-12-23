@@ -103,11 +103,10 @@ echo "${RELEASE}" > $VERSION_FILE
 
 msg_ok "Successfully installed ${APP} v${RELEASE}!"
 if [ -z "$DOMAIN" ]; then
-    msg_ok "Access it via localhost:3000 or ${LOCAL_IP}:3000."
+    msg_ok "Access it using localhost:3000 or ${LOCAL_IP}:3000."
 else
-    msg_ok "Access it via localhost:3000, ${LOCAL_IP}:3000, or ${APP}.${DOMAIN}:3000."
+    msg_ok "Access it using localhost:3000, ${LOCAL_IP}:3000, or ${APP}.${DOMAIN}:3000."
 fi
-
 
 # Service management
 if [ $NEW_INSTALLATION = true ]; then
