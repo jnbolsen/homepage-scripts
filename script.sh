@@ -28,6 +28,7 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+# Variables
 APP="homepage"
 LOCAL_IP=$(hostname -I | awk '{print $1}')
 RELEASE=$(curl -fsSL "https://api.github.com/repos/gethomepage/homepage/releases/latest" | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4)
@@ -50,18 +51,19 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-# Check if required commands exist
+# Check if curl is installed
 if ! command_exists curl; then
     msg_error "curl is required but not installed"
     exit 1
 fi
 
+# Check if npm is installed
 if ! command_exists npm; then
     msg_error "npm is required but not installed"
     exit 1
 fi
 
-# Version check - if version file exists and matches current release, exit
+# Version check - If version file exists and matches current release, exit
 VERSION_FILE="/opt/${APP}_version"
 if [ -f "$VERSION_FILE" ]; then
     INSTALLED_VERSION=$(cat "$VERSION_FILE")
@@ -81,7 +83,7 @@ npm install -g pnpm
 
 msg_info "Installing ${APP} v${RELEASE}"
 
-# Skip creating directories if already exists
+# Skip creating directories if existing installation
 if [ ! -d "/opt/${APP}" ]; then
     # Create config directory for new installation
     msg_info "No existing install detected. Creating installation directory..."
@@ -120,10 +122,11 @@ fi
 # Cleanup
 rm -rf /tmp/${APP}-${RELEASE} /tmp/${RELEASE}.tar.gz
 
-# Copy skeleton files only for new installations
+# New installations only
 if [ "$NEW_INSTALLATION" = true ]; then
-    msg_info "Copying skeleton files..."
+    # Copy skeleton files only for new installations
     if [ -d "/opt/${APP}/src/skeleton" ]; then
+        msg_info "Copying skeleton files..."
         cp -r /opt/${APP}/src/skeleton/* /opt/${APP}/config/
     fi
     
@@ -164,7 +167,7 @@ echo "${RELEASE}" > $VERSION_FILE
 
 msg_ok "Successfully installed ${APP} v${RELEASE}!"
 
-# Reload systemd and enable service only for new installations
+# Reload systemd and enable service only for new installations, otherwise restart service
 if [ "$NEW_INSTALLATION" = true ]; then
     msg_info "Enabling service..."
     systemctl daemon-reload
