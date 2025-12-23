@@ -20,7 +20,7 @@ APP=$(hostname)
 LOCAL_IP=$(hostname -I | awk '{print $1}')
 RELEASE=$(curl -fsSL "https://api.github.com/repos/gethomepage/homepage/releases/latest" | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4 | sed 's/^v//')
 VERSION_FILE="/opt/${APP}_version.txt"
-DOMAIN="home.jnbolsen.com"
+DOMAIN=$(hostname -d 2>/dev/null || echo "")
 
 # Validate
 [ -z $APP ] && msg_error "Could not fetch hostname." && exit 1
@@ -67,11 +67,12 @@ if [ $NEW_INSTALLATION = true ]; then
     
     # Create systemd service
     msg_ok "Creating systemd service..."
-    cat <<EOF >/etc/systemd/system/${APP}.service
+    cat > /etc/systemd/system/${APP}.service <<EOF
 [Unit]
 Description=${APP}
 After=network.target
 StartLimitIntervalSec=0
+
 [Service]
 Type=simple
 Restart=always
@@ -79,6 +80,7 @@ RestartSec=1
 User=root
 WorkingDirectory=/opt/${APP}/
 ExecStart=pnpm start
+
 [Install]
 WantedBy=multi-user.target
 EOF
