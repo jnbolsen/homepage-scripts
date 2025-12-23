@@ -24,7 +24,7 @@ wget -O install.sh https://raw.githubusercontent.com/jnbolsen/homepage-scripts/r
 > [!NOTE]
 > As of v1.0 there is one required environment variable to access Homepage via a URL, [`HOMEPAGE_ALLOWED_HOSTS`](https://gethomepage.dev/installation/).
 >
-> This script by default adds `localhost` and the IP address of the host to `HOMEPAGE_ALLOWED_HOSTS`. If an internal domain is configured on the host, this script will also automatically pull it using `hostname -d` and add it to `HOMEPAGE_ALLOWED_HOSTS`. Otherwise, the `DOMAIN` variable can be edited manually, or left blank if you do not have one.
+> This script by default adds `localhost` and the IP address of the host to `HOMEPAGE_ALLOWED_HOSTS`. If an internal domain is configured on the host, this script will also automatically pull it using `hostname -d` and add it to `HOMEPAGE_ALLOWED_HOSTS`. Otherwise, the `DOMAIN` variable can be edited manually, or left alone if you do not have one.
 
 > [!TIP]
 > If you are using Proxmox VE and an internal domain is configured, then it is added automatically in LXCs.
