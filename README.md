@@ -1,14 +1,13 @@
 # Homepage install and update scripts
-These are scripts to easily install and update [Homepage](https://gethomepage.dev/installation/) from source.
+This script installs [Homepage](https://gethomepage.dev/installation/) from source or updates it if already installed and a newer version is available.
 
 > [!NOTE]
-> Right now these are set to be verbose but can be changed by removing `-x` from `#!/bin/bash -x`.
+> The script installs dependencies and builds using pnpm [as recommended](https://gethomepage.dev/installation/source/). The latest verison is installed globally using npm.
 
 ## Requirements
 The following packages are installed:
 - node.js
 - npm
-- pnpm
 - curl
 
 ```bash
@@ -23,7 +22,7 @@ sudo npm install -g pnpm
 Download `install.sh`.
 
 ```bash
-wget -O install.sh https://github.com/jnbolsen/homepage-scripts/blob/main/install.sh
+wget -O install.sh https://raw.githubusercontent.com/jnbolsen/homepage-scripts/refs/heads/main/install.sh
 ```
 
 Make the scrip executable.
@@ -36,25 +35,6 @@ Run the script.
 
 ```bash
 sudo ./install.sh
-```
-
-## Usage - Update Homepage
-Download `update.sh`.
-
-```bash
-wget -O update.sh https://github.com/jnbolsen/homepage-scripts/blob/main/update.sh
-```
-
-Make the scrip executable.
-
-```bash
-sudo chmod +x update.sh
-```
-
-Run the script.
-
-```bash
-sudo ./update.sh
 ```
 
 ## Configuration directory location
