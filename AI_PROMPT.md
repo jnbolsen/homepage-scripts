@@ -5,7 +5,7 @@ This file provides guidance to an AI model when working with code in this reposi
 This script automates the installation or update of Homepage, a self-hosted startpage/dashboard for your server, by downloading the latest release from GitHub, building it, and setting it up with systemd.
 
 ## Variables used
-- `APP`: Name of the application, pulled from machine hostname (homepage)
+- `APP`: Name of the application (homepage)
 - `LOCAL_IP`: Local IPv4 address of the machine
 - `RELEASE`: Latest Github release tag for Homepage
 - `VERSION_FILE`: Path to file storing the currently installed version
@@ -14,13 +14,14 @@ This script automates the installation or update of Homepage, a self-hosted star
 - `NEW_INSTALLATION`: Boolean flag indicating if this is a new install
 
 ## Directories
-- Installation directory: `/opt/homepage`
-- Working directory: `/tmp`
-- Location of version file: `/opt`
+- Installation: `/opt/homepage`
+- Homepage configuration: `/opt/homepage/config`
+- Download: `/tmp`
+- `VERSION_FILE` location: `/opt`
 
 ## Script summary
 1. Set initial variables
-   - Define `APP`, `LOCAL_IP`, and fetch latest `RELEASE` from GitHub.
+   - `APP`, `LOCAL_IP`, `RELEASE`, `VERSION_FILE`, and `DOMAIN`.
 2. Validation checks
    - Ensure `RELEASE` and `LOCAL_IP` are valid.
    - Check that script runs as root.
