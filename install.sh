@@ -17,13 +17,13 @@ msg_error() { echo -e "${RED}ERROR:${NC} $1" >&2; }
 
 # Variables
 APP=homepage
+HOSTNAME=$(hostname)
 LOCAL_IP=$(hostname -I | awk '{print $1}')
-DOMAIN=$(hostname -d 2>/dev/null || echo "")
 RELEASE=$(curl -fsSL "https://api.github.com/repos/gethomepage/homepage/releases/latest" | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4 | sed 's/^v//')
 VERSION_FILE="/opt/${APP}_version.txt"
 
 # Validate
-[ -z $APP ] && msg_error "Could not fetch hostname." && exit 1
+[ -z $HOSTNAME ] && msg_error "Could not fetch hostname." && exit 1
 [ -z $LOCAL_IP ] && msg_error "Could not determine local IP address." && exit 1
 [ -z $RELEASE ] && msg_error "Could not fetch release version." && exit 1
 
@@ -41,6 +41,11 @@ else
     NEW_INSTALLATION=true
     msg_info "No Homepage installation detected. Installing..."
     mkdir -p /opt/${APP}/config
+
+    # Prompt user for domain input
+    msg_info "Please enter your internal network domain (or press Enter to skip):"
+    read -r DOMAIN_INPUT
+    DOMAIN="$DOMAIN_INPUT"
 fi
 
 # Update system and install pnpm
@@ -67,7 +72,7 @@ if [ $NEW_INSTALLATION = true ]; then
     if [ -z "$DOMAIN" ]; then
         echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000" > /opt/${APP}/.env
     else
-        echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000,${APP}.${DOMAIN}:3000" > /opt/${APP}/.env
+        echo "HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${LOCAL_IP}:3000,${HOSTNAME}.${DOMAIN}:3000" > /opt/${APP}/.env
     fi
     
     # Create systemd service
@@ -101,11 +106,11 @@ pnpm build
 # Create version file
 echo "${RELEASE}" > $VERSION_FILE
 
-msg_ok "Successfully installed ${APP} v${RELEASE}!"
+msg_ok "Successfully installed Homepage v${RELEASE}!"
 if [ -z "$DOMAIN" ]; then
     msg_ok "Access it via localhost:3000 or ${LOCAL_IP}:3000."
 else
-    msg_ok "Access it via localhost:3000, ${LOCAL_IP}:3000, or ${APP}.${DOMAIN}:3000."
+    msg_ok "Access it via localhost:3000, ${LOCAL_IP}:3000, or ${HOSTNAME}.${DOMAIN}:3000."
 fi
 
 # Service management
@@ -113,8 +118,8 @@ if [ $NEW_INSTALLATION = true ]; then
     systemctl daemon-reload
     systemctl enable ${APP}
     systemctl start ${APP}
-    msg_ok "Service ${APP} started successfully!"
+    msg_ok "Service started successfully!"
 else
     systemctl start ${APP}
-    msg_ok "Service ${APP} started successfully!"
+    msg_ok "Service started successfully!"
 fi
