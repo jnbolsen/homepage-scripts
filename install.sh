@@ -1,8 +1,6 @@
 #!/bin/bash
 
-set -e
-set -u
-set -o pipefail
+set -euo pipefail
 
 # Colors
 RED='\033[0;31m'
@@ -14,6 +12,12 @@ NC='\033[0m'
 msg_info() { echo -e "${YELLOW}INFO:${NC} $1"; }
 msg_ok() { echo -e "${GREEN}SUCCESS:${NC} $1"; }
 msg_error() { echo -e "${RED}ERROR:${NC} $1" >&2; }
+
+# Ensure the script is run as root
+if [ "$EUID" -ne 0 ]; then
+    msg_error "Please run as root."
+    exit 1
+fi
 
 # Variables
 APP=homepage
