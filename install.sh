@@ -5,11 +5,10 @@ set -euo pipefail
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # Logging functions
-msg_info() { echo -e "${YELLOW}INFO:${NC} $1"; }
+msg_info() { echo -e "${NC}INFO:${NC} $1"; }
 msg_ok() { echo -e "${GREEN}SUCCESS:${NC} $1"; }
 msg_error() { echo -e "${RED}ERROR:${NC} $1" >&2; }
 
